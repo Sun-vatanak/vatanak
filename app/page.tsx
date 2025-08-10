@@ -540,7 +540,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  Hi, I'm{" "}
+                  Hi, I am{" "}
                   <motion.span
                     className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
                     animate={{
@@ -1052,7 +1052,7 @@ export default function Home() {
               <GlassCard className="p-6 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
                 <div className="space-y-4 text-gray-300">
                   <p>
-                    I'm Vatanak, a passionate UX/UI designer with over 5 years of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
+                    I am Vatanak, a passionate UX/UI designer with over 1 years of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
                   </p>
                   <p>
                     My approach combines modern design principles with deep cultural understanding, ensuring that every project not only looks great but also feels authentic to local users.
@@ -1127,10 +1127,10 @@ export default function Home() {
         <GlassCard className="container mx-auto max-w-6xl p-12 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Let's Work Together
+              Lets Work Together
             </h2>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              Ready to bring your next project to life? I'd love to hear about your ideas and discuss how we can create something amazing together.
+              Ready to bring your next project to life?  love to hear about your ideas and discuss how we can create something amazing together.
             </p>
           </AnimatedSection>
 
