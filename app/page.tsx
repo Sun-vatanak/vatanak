@@ -41,6 +41,7 @@ const Background3D = dynamic(() => import("@/components/Background3D"), {
 
 // Define interfaces
 interface Project {
+  link: string | undefined;
   id: number;
   title: string;
   description: string;
@@ -124,86 +125,134 @@ export default function Home() {
 
   // Data arrays (unchanged)
   const projects: Project[] = [
-    {
-      id: 1,
-      title: "Angkor Tourism App",
-      description:
-        "Mobile app redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
-      image:
-        "https://images.unsplash.com/photo-1539650116574-75c0c6d73f1b?w=600&h=400&fit=crop",
-      category: "Mobile App",
-      tools: ["Figma", "Principle", "Adobe XD"],
-      year: "2024",
-      gradient: "from-cyan-500 to-blue-500",
-    },
-    {
-      id: 2,
-      title: "Khmer Banking Dashboard",
-      description:
-        "Complete UX overhaul of a local banking platform with focus on accessibility and Khmer language support.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      category: "Web App",
-      tools: ["Figma", "Miro", "InVision"],
-      year: "2024",
-      gradient: "from-purple-500 to-pink-500",
-    },
+   
     {
       id: 3,
-      title: "Cambodian E-commerce Platform",
+      title: "Figma Project  IOne Office V2 ",
       description:
         "Full-stack e-commerce solution designed for local artisans and craftspeople selling traditional goods.",
       image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-      category: "E-commerce",
+        "/images/project3.jpg", // Fixed path
+      category: " HR Management",
       tools: ["Sketch", "Figma", "Zeplin"],
-      year: "2023",
+      year: "2025",
       gradient: "from-indigo-500 to-purple-500",
+      link: "https://www.figma.com/design/i5JurepNjQNiT22IY7Wfuy/iOne?node-id=1-2&t=xCOb7cwa9X926H5d-1",
     },
     {
       id: 4,
-      title: "Phnom Penh Metro Map",
+      title: "Figma Project  IOne Office V2 Dashborad",
       description:
         "Interactive public transportation system design with multilingual support and accessibility features.",
       image:
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=400&fit=crop",
-      category: "Public Service",
+        "/images/project4.png", // Fixed path
+      category: "HR Management And dashboard",
       tools: ["Figma", "Illustrator", "Principle"],
-      year: "2023",
+      year: "2025",
       gradient: "from-blue-500 to-cyan-500",
+      link: "https://www.figma.com/design/JaUet4VrOsF4zc1PlGHf8t/iOne-Office?node-id=18-5227&t=Fe2kHL9FMMN6En7i-1",
     },
+    
     {
       id: 5,
       title: "Cambodian Recipe App",
       description:
         "Cultural cooking app preserving traditional Khmer recipes with step-by-step video tutorials.",
       image:
-        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
+        "/images/project5.png", // Fixed path
       category: "Mobile App",
       tools: ["Figma", "After Effects", "Lottie"],
-      year: "2023",
+      year: "2024",
       gradient: "from-violet-500 to-purple-500",
+      link: "http://antstudents.com/WebScholarshipS2/Group-17/ProjectCSS_GreenGrowth/mains/index.html",
+    },
+     {
+      id: 1,
+      title: "Fishion & Shop App",
+      description:
+        "Mobile app redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
+      image:
+        "/images/project1.jpg", // Fixed path
+      category: "Mobile App",
+      tools: ["Figma", "Freepick", "Adobe XD"],
+      year: "2024",
+      gradient: "from-cyan-500 to-blue-500",
+      link: "https://www.figma.com/design/EOnlswLUhwEjtJghsNBahk/Fashion--Shop?node-id=0-1&t=lPLsI07xo9foTIah-1",
+    },
+    {
+      id: 2,
+      title: "Figma Project Phser Baitong",
+      description:
+        "Complete UX overhaul of a local banking platform with focus on accessibility and Khmer language support.",
+      image:
+        "/images/project2.jpg", // Fixed path
+      category: "Web App",
+      tools: ["Figma", "vue", "Laravel"],
+      year: "2024",
+      gradient: "from-purple-500 to-pink-500",
+      link: "https://www.figma.com/design/5NiaE7l5yVRXEiG9MaQC2z/UX%2FUI-Figma-File?t=fsy2KilShLh1Fvxh-1",
     },
     {
       id: 6,
-      title: "Education Platform",
+      title: "គេហទំព័រ ហ្រ្គីនហ្រ្កូ Green Growth",
       description:
-        "Online learning platform designed for Cambodian students with gamification and progress tracking.",
+        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
       image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
-      category: "EdTech",
-      tools: ["Figma", "Maze", "Hotjar"],
-      year: "2022",
+        "/images/project6.png", // Fixed path
+      category: "Web App Social Media",
+      tools: ["Figma", "HT", "Hotjar"],
+      year: "2024",
       gradient: "from-pink-500 to-rose-500",
+      link: "https://example.com/phnom-penh-metro-map",
+    },
+
+     {
+      id: 7,
+      title: "Project Phser Baitong",
+      description:
+        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
+      image:
+        "/images/project7.jpg", // Fixed path
+      category: "Web App E-commerce ",
+      tools: ["Figma","Figjam"],
+      year: "2024",
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://www.figma.com/board/LyzNv1v3GDlD2N4gLT12Px/UX-UI-FigJam?node-id=0-1&t=uOG0tpSukN3FYIaL-0",
+    },
+     {
+      id: 8,
+      title: "Project Phser Baitong Video demo ",
+      description:
+        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
+      image:
+        "/images/project8.png", // Fixed path
+      category: "Web App E-commerce",
+      tools: ["Video"],
+      year: "2025",
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://www.figma.com/board/LyzNv1v3GDlD2N4gLT12Px/UX-UI-FigJam?node-id=0-1&t=uOG0tpSukN3FYIaL-0",
+    },
+     {
+      id: 9,
+      title: "គេហទំព័រ កសិករ / Kaksekar",
+      description:
+        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
+      image:
+        "/images/project9.png", // Fixed path
+      category: "Web Design",
+      tools: ["Figma", "HTML", "CSS"],
+      year: "2024",
+      gradient: "from-pink-500 to-rose-500",
+      link: "http://antstudents.com/WebScholarship/Group-16/ProjectHTML/index.html",
     },
   ];
 
   const experiences: Experience[] = [
     {
       id: 1,
-      company: "Digital Innovation Cambodia",
-      position: "Senior UX/UI Designer",
-      period: "2022 - Present",
+      company: "ANT Training Center",
+      position: "UX/UI  Designer",
+      period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
         "Leading design initiatives for fintech and e-commerce solutions targeting Southeast Asian markets. Mentoring junior designers and establishing design systems.",
@@ -216,9 +265,9 @@ export default function Home() {
     },
     {
       id: 2,
-      company: "Khmer Tech Solutions",
-      position: "UX/UI Designer",
-      period: "2020 - 2022",
+      company: "IT  ស្រុកស្រែ (Srok Srae)",
+      position: "UX/UI Designer And Frontend Developer",
+      period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
         "Designed mobile applications and web platforms for local startups and government projects, focusing on accessibility and cultural relevance.",
@@ -231,9 +280,9 @@ export default function Home() {
     },
     {
       id: 3,
-      company: "Creative Studio Asia",
+      company: "iOne Cambodia",
       position: "Junior Designer",
-      period: "2019 - 2020",
+      period: "2025 - present",
       location: "Phnom Penh, Cambodia",
       description:
         "Started career focusing on branding and digital design for SMEs across Cambodia and Vietnam markets.",
@@ -337,49 +386,40 @@ export default function Home() {
     },
   ];
 
-  const tools: Tool[] = [
-    {
-      name: "Figma",
-      color: "bg-pink-500/15 text-pink-300 border-pink-500/40 hover:bg-pink-500/25",
-    },
-    {
-      name: "Sketch",
-      color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25",
-    },
-    {
-      name: "Adobe XD",
-      color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25",
-    },
-    {
-      name: "Principle",
-      color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25",
-    },
-    {
-      name: "InVision",
-      color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25",
-    },
-    {
-      name: "Miro",
-      color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25",
-    },
-    {
-      name: "Maze",
-      color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25",
-    },
-    {
-      name: "Hotjar",
-      color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25",
-    },
-    {
-      name: "Zeplin",
-      color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25",
-    },
-    {
-      name: "Adobe Creative Suite",
-      color:
-        "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-300 border-purple-500/40 hover:from-purple-500/25 hover:to-pink-500/25",
-    },
-  ];
+ const tools: Tool[] = [
+  { name: "Figma", color: "bg-pink-500/15 text-pink-300 border-pink-500/40 hover:bg-pink-500/25" },
+  { name: "HTML", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
+  { name: "CSS", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
+  { name: "JavaScript", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
+  { name: "React", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
+  { name: "Next.js", color: "bg-slate-500/15 text-slate-300 border-slate-500/40 hover:bg-slate-500/25" },
+  { name: "Tailwind CSS", color: "bg-teal-500/15 text-teal-300 border-teal-500/40 hover:bg-teal-500/25" },
+  { name: "Bootstrap", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
+  { name: "Shadcn UI", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
+  { name: "Vue.js", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
+  { name: "Nuxt.js", color: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/25" },
+  { name: "Python", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
+  { name: "Django", color: "bg-green-700/15 text-green-300 border-green-700/40 hover:bg-green-700/25" },
+  { name: "FastAPI", color: "bg-lime-500/15 text-lime-300 border-lime-500/40 hover:bg-lime-500/25" },
+  { name: "PHP", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
+  { name: "Laravel", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" },
+  { name: "Git & GitHub", color: "bg-gray-500/15 text-gray-300 border-gray-500/40 hover:bg-gray-500/25" },
+  { name: "Postman", color: "bg-orange-600/15 text-orange-300 border-orange-600/40 hover:bg-orange-600/25" },
+  { name: "GitLab", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
+  { name: "Data analysis", color: "bg-sky-500/15 text-sky-300 border-sky-500/40 hover:bg-sky-500/25" },
+
+  { name: "Vs code", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
+  { name: "Adobe XD", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
+  { name: "Photoshop", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
+  { name: "Mysql", color: "bg-yellow-600/15 text-yellow-300 border-yellow-600/40 hover:bg-yellow-600/25" },
+  { name: "canvas", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
+  { name: "Trello", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
+  { name: "fagma Make", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" },
+  { name: "Netlify", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
+  { name: "Vercel", color: "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-300 border-purple-500/40 hover:from-purple-500/25 hover:to-pink-500/25" },
+  { name: "PVS Cloud", color: "bg-gradient-to-r from-indigo-500/15 to-blue-500/15 text-indigo-300 border-indigo-500/40 hover:from-indigo-500/25 hover:to-blue-500/25" },
+];
+
 
   const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = "" }) => {
     const ref = useRef(null);
@@ -771,19 +811,23 @@ export default function Home() {
                         </Badge>
                       ))}
                     </div>
-                    <motion.div
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="gap-2 p-0 h-auto text-cyan-400 hover:text-cyan-300"
+                    <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        View Project
-                        <ExternalLink className="w-4 h-4" />
-                      </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="gap-2 p-0 h-auto text-cyan-400 hover:text-cyan-300"
+                        >
+                          View Project
+                          <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      </a>
                     </motion.div>
+
                   </div>
                 </GlassCard>
               </motion.div>
@@ -1069,19 +1113,19 @@ export default function Home() {
                 {[
                   {
                     icon: Users,
-                    value: "15+",
+                    value: "5+",
                     label: "Happy Clients",
                     gradient: "from-blue-500 to-cyan-500",
                   },
                   {
                     icon: Briefcase,
-                    value: "50+",
+                    value: "10+",
                     label: "Projects",
                     gradient: "from-green-500 to-emerald-500",
                   },
                   {
                     icon: Award,
-                    value: "5+",
+                    value: "1+",
                     label: "Years Experience",
                     gradient: "from-purple-500 to-violet-500",
                   },
@@ -1140,13 +1184,13 @@ export default function Home() {
                 {
                   icon: Mail,
                   title: "Email",
-                  info: "hello@vatanak.design",
+                  info: "sunvatanak61@gmail.com",
                   gradient: "from-red-500 to-pink-500",
                 },
                 {
                   icon: Phone,
                   title: "Phone",
-                  info: "+855 12 345 678",
+                  info: "+855 88 609 8255",
                   gradient: "from-green-500 to-emerald-500",
                 },
                 {
