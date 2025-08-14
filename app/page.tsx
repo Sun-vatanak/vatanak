@@ -230,7 +230,7 @@ export default function Home() {
       tools: ["Video"],
       year: "2025",
       gradient: "from-pink-500 to-rose-500",
-      link: "https://www.figma.com/board/LyzNv1v3GDlD2N4gLT12Px/UX-UI-FigJam?node-id=0-1&t=uOG0tpSukN3FYIaL-0",
+      link: "https://www.facebook.com/share/v/17AzXzyc4b/",
     },
      {
       id: 9,
@@ -255,9 +255,9 @@ export default function Home() {
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
-        "Leading design initiatives for fintech and e-commerce solutions targeting Southeast Asian markets. Mentoring junior designers and establishing design systems.",
+        "Developed the website គេហទំព័រ ផ្សារបៃតង (Green Market WebsiteFocused on UX/UI and front-end development using Vue.jsCollaborated with team members using Git for version control and project managementPracticed effective time management, took responsibility, and worked in team environments",
       achievements: [
-        "Led redesign of banking platform serving 100K+ users",
+        "Led redesign of web App platform serving users",
         "Established company-wide design system",
         "Improved user engagement by 35%",
       ],
@@ -270,9 +270,9 @@ export default function Home() {
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
-        "Designed mobile applications and web platforms for local startups and government projects, focusing on accessibility and cultural relevance.",
+        "ontributed to UX/UI and front-end development using Vue.js Assisted the back-end team with database analysis",
       achievements: [
-        "Designed 15+ mobile applications",
+        "Designed 2+ mobile applications",
         "Improved accessibility compliance by 80%",
         "Collaborated with government on digital initiatives",
       ],
@@ -285,11 +285,11 @@ export default function Home() {
       period: "2025 - present",
       location: "Phnom Penh, Cambodia",
       description:
-        "Started career focusing on branding and digital design for SMEs across Cambodia and Vietnam markets.",
+        "ontributed to UX/UI ione coffice and front-end development using Nextjs",
       achievements: [
-        "Created brand identities for 20+ companies",
-        "Expanded services to Vietnam market",
-        "Won 'Rising Designer' award 2020",
+        "Created brand identities for 2+ companies",
+        "Expanded services to HR management and dashboard design",
+        "Won 'Rising Designer' award 2025",
       ],
       gradient: "from-indigo-500/15 to-violet-500/15",
     },
