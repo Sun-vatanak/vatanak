@@ -245,6 +245,32 @@ export default function Home() {
       gradient: "from-pink-500 to-rose-500",
       link: "http://antstudents.com/WebScholarship/Group-16/ProjectHTML/index.html",
     },
+     {
+      id: 10,
+      title: "Cinic  System ",
+      description:
+        " System learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
+      image:
+        "/images/project14.png", // Fixed path
+      category: "Web System",
+      tools: ["laravel", "Vue", "Mysql"],
+      year: "2025",
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://github.com/Sun-vatanak/Clinic-system-api.git",
+    },
+     {
+      id: 11,
+      title: "Moblie App API",
+      description:
+        "Moblile App  learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
+      image:
+        "/images/project15.jpg", // Fixed path
+      category: "Web System",
+      tools: ["laravel", "flutter", "Postgres"],
+      year: "2025",
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://github.com/Sun-vatanak/moblieapp-api-nu.git",
+    },
   ];
 
   const experiences: Experience[] = [
