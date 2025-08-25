@@ -1,6 +1,5 @@
 "use client"; // Mark as client component for Next.js
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   motion,
   useScroll,
@@ -33,6 +32,7 @@ import {
   Palette,
   Zap,
 } from "lucide-react";
+import debounce from "lodash/debounce"; // Import lodash debounce for scroll optimization
 
 // Dynamically import Background3D
 const Background3D = dynamic(() => import("@/components/Background3D"), {
@@ -51,7 +51,6 @@ interface Project {
   year: string;
   gradient: string;
 }
-
 interface Experience {
   id: number;
   company: string;
@@ -62,7 +61,6 @@ interface Experience {
   achievements: string[];
   gradient: string;
 }
-
 interface Education {
   id: number;
   institution: string;
@@ -73,22 +71,18 @@ interface Education {
   achievements: string[];
   gradient: string;
 }
-
 interface Skill {
   name: string;
   color: string;
 }
-
 interface Tool {
   name: string;
   color: string;
 }
-
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
 }
-
 interface GlassCardProps {
   children: React.ReactNode;
   className?: string;
@@ -101,78 +95,57 @@ export default function Home() {
   const heroRef = useRef(null);
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Parallax effects
-  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  // Parallax effects with reduced range for better performance
+  const heroY = useTransform(scrollY, [0, 300], [0, 100]);
+  const heroOpacity = useTransform(scrollY, [0, 200], [1, 0.5]);
 
-  // Show scroll to top button
-  useEffect(() => {
-    const handleScroll = () => {
+  // Optimized scroll handler with debounce
+  const handleScroll = useCallback(
+    debounce(() => {
       setShowScrollTop(window.scrollY > 500);
+    }, 100),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true }); // Passive listener for performance
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      handleScroll.cancel(); // Clean up debounce
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  // Enhanced smooth scrolling with focus management
+  const scrollToSection = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Set focus for accessibility
+      element.setAttribute("tabindex", "-1");
+      element.focus({ preventScroll: true });
+      element.removeAttribute("tabindex");
+    }
+    setIsMenuOpen(false);
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+    const hero = document.getElementById("hero");
+    if (hero) {
+      hero.setAttribute("tabindex", "-1");
+      hero.focus({ preventScroll: true });
+      hero.removeAttribute("tabindex");
+    }
+  }, []);
 
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setIsMenuOpen(false);
-  };
-
-  // Data arrays (unchanged)
+  // Updated projects data with corrected IDs
   const projects: Project[] = [
-   
     {
-      id: 3,
-      title: "Figma Project  IOne Office V2 ",
-      description:
-        "Full-stack e-commerce solution designed for local artisans and craftspeople selling traditional goods.",
-      image:
-        "/images/project3.jpg", // Fixed path
-      category: " HR Management",
-      tools: ["Sketch", "Figma", "Zeplin"],
-      year: "2025",
-      gradient: "from-indigo-500 to-purple-500",
-      link: "https://www.figma.com/design/i5JurepNjQNiT22IY7Wfuy/iOne?node-id=1-2&t=xCOb7cwa9X926H5d-1",
-    },
-    {
-      id: 4,
-      title: "Figma Project  IOne Office V2 Dashborad",
-      description:
-        "Interactive public transportation system design with multilingual support and accessibility features.",
-      image:
-        "/images/project4.png", // Fixed path
-      category: "HR Management And dashboard",
-      tools: ["Figma", "Illustrator", "Principle"],
-      year: "2025",
-      gradient: "from-blue-500 to-cyan-500",
-      link: "https://www.figma.com/design/JaUet4VrOsF4zc1PlGHf8t/iOne-Office?node-id=18-5227&t=Fe2kHL9FMMN6En7i-1",
-    },
-    
-    {
-      id: 5,
-      title: "Cambodian Recipe App",
-      description:
-        "Cultural cooking app preserving traditional Khmer recipes with step-by-step video tutorials.",
-      image:
-        "/images/project5.png", // Fixed path
-      category: "Mobile App",
-      tools: ["Figma", "After Effects", "Lottie"],
-      year: "2024",
-      gradient: "from-violet-500 to-purple-500",
-      link: "http://antstudents.com/WebScholarshipS2/Group-17/ProjectCSS_GreenGrowth/mains/index.html",
-    },
-     {
       id: 1,
       title: "Fishion & Shop App",
       description:
         "Mobile app redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
-      image:
-        "/images/project1.jpg", // Fixed path
+      image: "/images/project1.jpg",
       category: "Mobile App",
       tools: ["Figma", "Freepick", "Adobe XD"],
       year: "2024",
@@ -184,92 +157,132 @@ export default function Home() {
       title: "Figma Project Phser Baitong",
       description:
         "Complete UX overhaul of a local banking platform with focus on accessibility and Khmer language support.",
-      image:
-        "/images/project2.jpg", // Fixed path
+      image: "/images/project2.jpg",
       category: "Web App",
-      tools: ["Figma", "vue", "Laravel"],
+      tools: ["Figma", "Vue", "Laravel"],
       year: "2024",
       gradient: "from-purple-500 to-pink-500",
       link: "https://www.figma.com/design/5NiaE7l5yVRXEiG9MaQC2z/UX%2FUI-Figma-File?t=fsy2KilShLh1Fvxh-1",
     },
     {
+      id: 3,
+      title: "Figma Project IOne Office V2",
+      description:
+        "Full-stack e-commerce solution designed for local artisans and craftspeople selling traditional goods.",
+      image: "/images/project3.jpg",
+      category: "HR Management",
+      tools: ["Sketch", "Figma", "Zeplin"],
+      year: "2025",
+      gradient: "from-indigo-500 to-purple-500",
+      link: "https://www.figma.com/design/i5JurepNjQNiT22IY7Wfuy/iOne?node-id=1-2&t=xCOb7cwa9X926H5d-1",
+    },
+    {
+      id: 4,
+      title: "Figma Project IOne Office V2 Dashboard",
+      description:
+        "Interactive public transportation system design with multilingual support and accessibility features.",
+      image: "/images/project4.jpg",
+      category: "HR Management And dashboard",
+      tools: ["Figma", "Illustrator", "Principle"],
+      year: "2025",
+      gradient: "from-blue-500 to-cyan-500",
+      link: "https://www.figma.com/design/JaUet4VrOsF4zc1PlGHf8t/iOne-Office?node-id=18-5227&t=Fe2kHL9FMMN6En7i-1",
+    },
+    {
+      id: 5,
+      title: "Cambodian Recipe App",
+      description:
+        "Cultural cooking app preserving traditional Khmer recipes with step-by-step video tutorials.",
+      image: "/images/project5.png",
+      category: "Mobile App",
+      tools: ["Figma", "After Effects", "Lottie"],
+      year: "2024",
+      gradient: "from-violet-500 to-purple-500",
+      link: "http://antstudents.com/WebScholarshipS2/Group-17/ProjectCSS_GreenGrowth/mains/index.html",
+    },
+    {
       id: 6,
       title: "គេហទំព័រ ហ្រ្គីនហ្រ្កូ Green Growth",
       description:
-        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project6.png", // Fixed path
+        "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project6.png",
       category: "Web App Social Media",
-      tools: ["Figma", "HT", "Hotjar"],
+      tools: ["Figma", "HTML", "Hotjar"],
       year: "2024",
       gradient: "from-pink-500 to-rose-500",
       link: "https://example.com/phnom-penh-metro-map",
     },
-
-     {
+    {
       id: 7,
       title: "Project Phser Baitong",
       description:
-        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project7.jpg", // Fixed path
-      category: "Web App E-commerce ",
-      tools: ["Figma","Figjam"],
+        "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project7.jpg",
+      category: "Web App E-commerce",
+      tools: ["Figma", "Figjam"],
       year: "2024",
       gradient: "from-pink-500 to-rose-500",
       link: "https://www.figma.com/board/LyzNv1v3GDlD2N4gLT12Px/UX-UI-FigJam?node-id=0-1&t=uOG0tpSukN3FYIaL-0",
     },
-     {
+    {
       id: 8,
-      title: "Project Phser Baitong Video demo ",
+      title: "Project Phser Baitong Video Demo",
       description:
-        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project8.png", // Fixed path
+        "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project8.png",
       category: "Web App E-commerce",
       tools: ["Video"],
       year: "2025",
       gradient: "from-pink-500 to-rose-500",
       link: "https://www.facebook.com/share/v/17AzXzyc4b/",
     },
-     {
+    {
       id: 9,
       title: "គេហទំព័រ កសិករ / Kaksekar",
       description:
-        " Social media learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project9.png", // Fixed path
+        "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project9.png",
       category: "Web Design",
       tools: ["Figma", "HTML", "CSS"],
       year: "2024",
       gradient: "from-pink-500 to-rose-500",
       link: "http://antstudents.com/WebScholarship/Group-16/ProjectHTML/index.html",
     },
-     {
+    {
       id: 10,
-      title: "Cinic  System ",
+      title: "Clinic System",
       description:
-        " System learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project14.png", // Fixed path
+        "System learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project14.png",
       category: "Web System",
-      tools: ["laravel", "Vue", "Mysql"],
+      tools: ["Laravel", "Vue", "MySQL"],
       year: "2025",
       gradient: "from-pink-500 to-rose-500",
       link: "https://github.com/Sun-vatanak/Clinic-system-api.git",
     },
-     {
+    {
       id: 11,
-      title: "Moblie App API",
+      title: "Mobile App API",
       description:
-        "Moblile App  learning platform for Cambodian students about agriculture, with gamification and local product selling. .",
-      image:
-        "/images/project15.jpg", // Fixed path
+        "Mobile app learning platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project15.jpg",
       category: "Web System",
-      tools: ["laravel", "flutter", "Postgres"],
+      tools: ["Laravel", "Flutter", "PostgreSQL"],
       year: "2025",
       gradient: "from-pink-500 to-rose-500",
       link: "https://github.com/Sun-vatanak/moblieapp-api-nu.git",
+    },
+    {
+      id: 12,
+      title: "Website Web Body UX UI",
+      description:
+        "Website body platform for Cambodian students about agriculture, with gamification and local product selling.",
+      image: "/images/project16.jpg",
+      category: "Web UX UI",
+      tools: ["Laravel", "Flutter", "PostgreSQL"],
+      year: "2024",
+      gradient: "from-pink-500 to-rose-500",
+      link: "https://www.figma.com/design/kofJywV4nFD2u2tLAjfFt9/Group3-Web-body?node-id=6-576&t=K1a7NvfHfZXrz2Au-1",
     },
   ];
 
@@ -277,13 +290,13 @@ export default function Home() {
     {
       id: 1,
       company: "ANT Training Center",
-      position: "UX/UI  Designer",
+      position: "UX/UI Designer",
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
-        "Developed the website គេហទំព័រ ផ្សារបៃតង (Green Market WebsiteFocused on UX/UI and front-end development using Vue.jsCollaborated with team members using Git for version control and project managementPracticed effective time management, took responsibility, and worked in team environments",
+        "Developed the website គេហទំព័រ ផ្សារបៃតង (Green Market Website). Focused on UX/UI and front-end development using Vue.js. Collaborated with team members using Git for version control and project management. Practiced effective time management, took responsibility, and worked in team environments.",
       achievements: [
-        "Led redesign of web App platform serving users",
+        "Led redesign of web app platform serving users",
         "Established company-wide design system",
         "Improved user engagement by 35%",
       ],
@@ -291,12 +304,12 @@ export default function Home() {
     },
     {
       id: 2,
-      company: "IT  ស្រុកស្រែ (Srok Srae)",
+      company: "IT ស្រុកស្រែ (Srok Srae)",
       position: "UX/UI Designer And Frontend Developer",
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
-        "ontributed to UX/UI and front-end development using Vue.js Assisted the back-end team with database analysis",
+        "Contributed to UX/UI and front-end development using Vue.js. Assisted the back-end team with database analysis.",
       achievements: [
         "Designed 2+ mobile applications",
         "Improved accessibility compliance by 80%",
@@ -311,7 +324,7 @@ export default function Home() {
       period: "2025 - present",
       location: "Phnom Penh, Cambodia",
       description:
-        "ontributed to UX/UI ione coffice and front-end development using Nextjs",
+        "Contributed to UX/UI for iOne Office and front-end development using Next.js.",
       achievements: [
         "Created brand identities for 2+ companies",
         "Expanded services to HR management and dashboard design",
@@ -325,7 +338,7 @@ export default function Home() {
     {
       id: 1,
       institution: "Norton University",
-      degree: "Year 4 of Sowftware Devolopment",
+      degree: "Year 4 of Software Development",
       period: "2022 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
@@ -339,12 +352,12 @@ export default function Home() {
     },
     {
       id: 2,
-      institution: "Principles of UX/UI Design  Certificate Meta ",
+      institution: "Principles of UX/UI Design Certificate Meta",
       degree: "Professional Certificate",
       period: "2025",
       location: "Online",
       description:
-        "Comprehensive UX UI  design program covering user research, wireframing, prototyping, and usability testing methodologies.",
+        "Comprehensive UX/UI design program covering user research, wireframing, prototyping, and usability testing methodologies.",
       achievements: [
         "Completed 6-month intensive program",
         "Portfolio project featured by Meta",
@@ -355,11 +368,11 @@ export default function Home() {
     {
       id: 3,
       institution: "ANT Training Center",
-      degree: "web development (laravel)",
-      period: "2023-25",
+      degree: "Web Development (Laravel)",
+      period: "2023-2025",
       location: "Phnom Penh, Cambodia",
       description:
-        "I am a recipient of a scholarship from the CBRD Foundation, Ministry of Posts and Telecommunications, enrolled in a program from February 2024 to February 2025.",
+        "Recipient of a scholarship from the CBRD Foundation, Ministry of Posts and Telecommunications, enrolled in a program from February 2024 to February 2025.",
       achievements: [
         "Expert level certification",
         "Top 5% of test takers globally",
@@ -412,40 +425,38 @@ export default function Home() {
     },
   ];
 
- const tools: Tool[] = [
-  { name: "Figma", color: "bg-pink-500/15 text-pink-300 border-pink-500/40 hover:bg-pink-500/25" },
-  { name: "HTML", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
-  { name: "CSS", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
-  { name: "JavaScript", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
-  { name: "React", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
-  { name: "Next.js", color: "bg-slate-500/15 text-slate-300 border-slate-500/40 hover:bg-slate-500/25" },
-  { name: "Tailwind CSS", color: "bg-teal-500/15 text-teal-300 border-teal-500/40 hover:bg-teal-500/25" },
-  { name: "Bootstrap", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
-  { name: "Shadcn UI", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
-  { name: "Vue.js", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
-  { name: "Nuxt.js", color: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/25" },
-  { name: "Python", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
-  { name: "Django", color: "bg-green-700/15 text-green-300 border-green-700/40 hover:bg-green-700/25" },
-  { name: "FastAPI", color: "bg-lime-500/15 text-lime-300 border-lime-500/40 hover:bg-lime-500/25" },
-  { name: "PHP", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
-  { name: "Laravel", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" },
-  { name: "Git & GitHub", color: "bg-gray-500/15 text-gray-300 border-gray-500/40 hover:bg-gray-500/25" },
-  { name: "Postman", color: "bg-orange-600/15 text-orange-300 border-orange-600/40 hover:bg-orange-600/25" },
-  { name: "GitLab", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
-  { name: "Data analysis", color: "bg-sky-500/15 text-sky-300 border-sky-500/40 hover:bg-sky-500/25" },
-
-  { name: "Vs code", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
-  { name: "Adobe XD", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
-  { name: "Photoshop", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
-  { name: "Mysql", color: "bg-yellow-600/15 text-yellow-300 border-yellow-600/40 hover:bg-yellow-600/25" },
-  { name: "canvas", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
-  { name: "Trello", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
-  { name: "fagma Make", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" },
-  { name: "Netlify", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
-  { name: "Vercel", color: "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-300 border-purple-500/40 hover:from-purple-500/25 hover:to-pink-500/25" },
-  { name: "PVS Cloud", color: "bg-gradient-to-r from-indigo-500/15 to-blue-500/15 text-indigo-300 border-indigo-500/40 hover:from-indigo-500/25 hover:to-blue-500/25" },
-];
-
+  const tools: Tool[] = [
+    { name: "Figma", color: "bg-pink-500/15 text-pink-300 border-pink-500/40 hover:bg-pink-500/25" },
+    { name: "HTML", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
+    { name: "CSS", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
+    { name: "JavaScript", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
+    { name: "React", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
+    { name: "Next.js", color: "bg-slate-500/15 text-slate-300 border-slate-500/40 hover:bg-slate-500/25" },
+    { name: "Tailwind CSS", color: "bg-teal-500/15 text-teal-300 border-teal-500/40 hover:bg-teal-500/25" },
+    { name: "Bootstrap", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
+    { name: "Shadcn UI", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
+    { name: "Vue.js", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
+    { name: "Nuxt.js", color: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/25" },
+    { name: "Python", color: "bg-yellow-500/15 text-yellow-300 border-yellow-500/40 hover:bg-yellow-500/25" },
+    { name: "Django", color: "bg-green-700/15 text-green-300 border-green-700/40 hover:bg-green-700/25" },
+    { name: "FastAPI", color: "bg-lime-500/15 text-lime-300 border-lime-500/40 hover:bg-lime-500/25" },
+    { name: "PHP", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
+    { name: "Laravel", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" },
+    { name: "Git & GitHub", color: "bg-gray-500/15 text-gray-300 border-gray-500/40 hover:bg-gray-500/25" },
+    { name: "Postman", color: "bg-orange-600/15 text-orange-300 border-orange-600/40 hover:bg-orange-600/25" },
+    { name: "GitLab", color: "bg-orange-500/15 text-orange-300 border-orange-500/40 hover:bg-orange-500/25" },
+    { name: "Data Analysis", color: "bg-sky-500/15 text-sky-300 border-sky-500/40 hover:bg-sky-500/25" },
+    { name: "VS Code", color: "bg-blue-500/15 text-blue-300 border-blue-500/40 hover:bg-blue-500/25" },
+    { name: "Adobe XD", color: "bg-purple-500/15 text-purple-300 border-purple-500/40 hover:bg-purple-500/25" },
+    { name: "Photoshop", color: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40 hover:bg-cyan-500/25" },
+    { name: "MySQL", color: "bg-yellow-600/15 text-yellow-300 border-yellow-600/40 hover:bg-yellow-600/25" },
+    { name: "Canva", color: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/25" },
+    { name: "Trello", color: "bg-violet-500/15 text-violet-300 border-violet-500/40 hover:bg-violet-500/25" },
+    { name: "FigJam", color: "bg-red-500/15 text-red-300 border-red-500/40 hover:bg-red-500/25" }, // Corrected "Figma Make" to "FigJam"
+    { name: "Netlify", color: "bg-green-500/15 text-green-300 border-green-500/40 hover:bg-green-500/25" },
+    { name: "Vercel", color: "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-300 border-purple-500/40 hover:from-purple-500/25 hover:to-pink-500/25" },
+    { name: "PVS Cloud", color: "bg-gradient-to-r from-indigo-500/15 to-blue-500/15 text-indigo-300 border-indigo-500/40 hover:from-indigo-500/25 hover:to-blue-500/25" },
+  ];
 
   const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className = "" }) => {
     const ref = useRef(null);
@@ -453,13 +464,12 @@ export default function Home() {
       once: true,
       margin: "-100px",
     });
-
     return (
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 75 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 75 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={className}
       >
         {children}
@@ -476,7 +486,27 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-x-hidden relative">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-auto">
+      {/* Ensure smooth scrolling globally */}
+      <style jsx global>{`
+        html, body {
+          scroll-behavior: smooth;
+          overscroll-behavior-y: auto;
+          -webkit-overflow-scrolling: touch;
+          height: 100%;
+          margin: 0;
+          touch-action: auto;
+        }
+        #__next {
+          min-height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        section {
+          min-height: 100vh; /* Ensure sections have enough height for scrolling */
+        }
+      `}</style>
+
       {/* 3D Background */}
       <Background3D />
 
@@ -485,7 +515,7 @@ export default function Home() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/20 border-b border-white/10"
+        className="fixed top-0 left-0 right-0 z-20 backdrop-blur-xl bg-black/20 border-b border-white/10"
       >
         <div className="container mx-auto max-w-6xl px-4 py-4">
           <div className="flex items-center justify-between">
@@ -496,7 +526,6 @@ export default function Home() {
             >
               Vatanak
             </motion.div>
-
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
               {[
@@ -511,7 +540,7 @@ export default function Home() {
                 <motion.button
                   key={item.name}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-200 hover:text-white transition-colors relative"
+                  className="text-gray-200 hover:text-white transition-colors relative focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2 }}
@@ -526,22 +555,20 @@ export default function Home() {
                 </motion.button>
               ))}
             </div>
-
             {/* Mobile Menu Toggle */}
             <motion.button
-              className="md:hidden p-2 rounded-lg backdrop-blur-sm bg-white/10"
+              className="md:hidden p-3 rounded-lg backdrop-blur-sm bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6 text-white" />
+                <X className="w-7 h-7 text-white" />
               ) : (
-                <Menu className="w-6 h-6 text-white" />
+                <Menu className="w-7 h-7 text-white" />
               )}
             </motion.button>
           </div>
-
           {/* Mobile Menu */}
           <motion.div
             initial={false}
@@ -552,7 +579,7 @@ export default function Home() {
             transition={{ duration: 0.3 }}
             className="md:hidden overflow-hidden"
           >
-            <GlassCard className="mt-4 p-4">
+            <GlassCard className="mt-4 p-6">
               <div className="space-y-4">
                 {[
                   { name: "Home", id: "hero" },
@@ -566,7 +593,7 @@ export default function Home() {
                   <motion.button
                     key={item.name}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left text-gray-200 hover:text-white transition-colors"
+                    className="block w-full text-left text-lg text-gray-200 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 py-3"
                     whileHover={{ x: 8 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -581,8 +608,10 @@ export default function Home() {
 
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 origin-left z-30"
         style={{ scaleX: scrollYProgress }}
+        animate={{ opacity: [1, 0.7, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Hero Section */}
@@ -601,7 +630,7 @@ export default function Home() {
             >
               <div className="space-y-2">
                 <motion.h1
-                  className="text-4xl lg:text-6xl font-medium text-white drop-shadow-lg"
+                  className="text-4xl md:text-5xl lg:text-6xl font-medium text-white drop-shadow-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -623,7 +652,7 @@ export default function Home() {
                   </motion.span>
                 </motion.h1>
                 <motion.h2
-                  className="text-2xl lg:text-3xl text-gray-200 drop-shadow"
+                  className="text-2xl md:text-3xl text-gray-200 drop-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
@@ -632,7 +661,7 @@ export default function Home() {
                 </motion.h2>
               </div>
               <motion.p
-                className="text-lg text-gray-300 max-w-lg drop-shadow"
+                className="text-base md:text-lg text-gray-300 max-w-lg drop-shadow"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
@@ -640,7 +669,7 @@ export default function Home() {
                 Crafting digital experiences that bridge traditional Cambodian culture with modern technology. Specializing in user-centered design for Southeast Asian markets.
               </motion.p>
               <motion.div
-                className="flex gap-4 items-center"
+                className="flex gap-4 items-center flex-wrap"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1 }}
@@ -652,9 +681,9 @@ export default function Home() {
                 >
                   <Button
                     size="lg"
-                    className="gap-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 border-0 text-white shadow-lg"
+                    className="gap-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 border-0 text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-5 h-5" />
                     Download Resume
                   </Button>
                 </motion.div>
@@ -666,16 +695,16 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="gap-2 backdrop-blur-sm bg-white/10 border-white/30 text-white hover:bg-white/15 shadow-lg"
+                    className="gap-2 backdrop-blur-sm bg-white/10 border-white/30 text-white hover:bg-white/15 shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                     onClick={() => scrollToSection("contact")}
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-5 h-5" />
                     Get in Touch
                   </Button>
                 </motion.div>
               </motion.div>
               <motion.div
-                className="flex gap-6 pt-4"
+                className="flex gap-6 pt-4 flex-wrap"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
@@ -722,14 +751,14 @@ export default function Home() {
             </motion.div>
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: 50, rotate: 5 }}
-              animate={{ opacity: 1, x: 0, rotate: 0 }}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <GlassCard className="p-8 aspect-square bg-gradient-to-br from-cyan-500/15 to-purple-500/15 shadow-xl">
                 <motion.div
                   className="w-full h-full rounded-xl overflow-hidden relative"
-                  whileHover={{ rotate: 2, scale: 1.02 }}
+                  whileHover={{ scale: 1.02 }}
                   transition={{
                     type: "spring",
                     stiffness: 300,
@@ -737,10 +766,10 @@ export default function Home() {
                   }}
                 >
                   <ImageWithFallback
-                    src="/images/vatanak.jpeg" // Fixed path
+                    src="/images/vatanak.jpeg"
                     alt="UX/UI Designer Portrait"
-                    width={400} // Added width
-                    height={400} // Added height
+                    width={400}
+                    height={400}
                     className="w-full h-full object-cover rounded-xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent" />
@@ -749,20 +778,12 @@ export default function Home() {
               <motion.div
                 className="absolute -top-4 -right-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white p-4 rounded-full shadow-lg"
                 animate={{
-                  rotate: [0, 360],
                   scale: [1, 1.1, 1],
                 }}
                 transition={{
-                  rotate: {
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                  },
-                  scale: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  },
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
               >
                 <Star className="w-6 h-6" />
@@ -776,15 +797,14 @@ export default function Home() {
       <section id="projects" className="py-20 px-4 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Featured Projects
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
               A selection of recent UX/UI projects that showcase my approach to solving complex design challenges in the Cambodian market.
             </p>
           </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -808,9 +828,10 @@ export default function Home() {
                       <ImageWithFallback
                         src={project.image}
                         alt={project.title}
-                        width={600} // Added width
-                        height={400} // Added height
+                        width={600}
+                        height={400}
                         className="w-full h-full object-cover transition-transform duration-400"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </motion.div>
@@ -825,7 +846,7 @@ export default function Home() {
                       <span className="text-sm text-gray-300">{project.year}</span>
                     </div>
                     <h3 className="text-xl font-medium mb-2 text-white">{project.title}</h3>
-                    <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
+                    <p className="text-gray-300 mb-4 line-clamp-2 text-sm md:text-base">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tools.map((tool) => (
                         <Badge
@@ -839,21 +860,20 @@ export default function Home() {
                     </div>
                     <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
                       <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={project.link || "#"}
+                        target={project.link ? "_blank" : "_self"}
+                        rel={project.link ? "noopener noreferrer" : ""}
                       >
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="gap-2 p-0 h-auto text-cyan-400 hover:text-cyan-300"
+                          className="gap-2 p-0 h-auto text-cyan-400 hover:text-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                         >
                           View Project
                           <ExternalLink className="w-4 h-4" />
                         </Button>
                       </a>
                     </motion.div>
-
                   </div>
                 </GlassCard>
               </motion.div>
@@ -870,15 +890,14 @@ export default function Home() {
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full">
                 <Briefcase className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl lg:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Professional Experience
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
               My journey through the design industry, working with innovative companies and contributing to meaningful projects across Southeast Asia.
             </p>
           </AnimatedSection>
-
           <div className="space-y-8">
             {experiences.map((exp, index) => (
               <AnimatedSection key={exp.id}>
@@ -915,7 +934,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="lg:w-2/3">
-                        <p className="text-gray-300 mb-4">{exp.description}</p>
+                        <p className="text-gray-300 mb-4 text-sm md:text-base">{exp.description}</p>
                         <div className="space-y-2">
                           <h5 className="font-medium text-sm text-white">Key Achievements:</h5>
                           <ul className="space-y-1">
@@ -955,15 +974,14 @@ export default function Home() {
               <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
                 <GraduationCap className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl lg:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Education & Certifications
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
               Continuous learning and professional development that shaped my design philosophy and technical expertise.
             </p>
           </AnimatedSection>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {education.map((edu, index) => (
               <AnimatedSection key={edu.id}>
@@ -1033,15 +1051,14 @@ export default function Home() {
               <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full">
                 <Palette className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl lg:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Skills & Expertise
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
               Comprehensive skill set developed through years of experience in digital design and user experience research.
             </p>
           </AnimatedSection>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <AnimatedSection>
               <GlassCard className="p-8">
@@ -1074,7 +1091,6 @@ export default function Home() {
                 </div>
               </GlassCard>
             </AnimatedSection>
-
             <AnimatedSection>
               <GlassCard className="p-8">
                 <div className="flex items-center gap-3 mb-6">
@@ -1116,13 +1132,13 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <h2 className="text-3xl lg:text-4xl font-medium mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 About Vatanak
               </h2>
               <GlassCard className="p-6 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
-                <div className="space-y-4 text-gray-300">
+                <div className="space-y-4 text-gray-300 text-sm md:text-base">
                   <p>
-                    I am Vatanak, a passionate UX/UI designer with over 1 years of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
+                    I am Vatanak, a passionate UX/UI designer with over 1 year of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
                   </p>
                   <p>
                     My approach combines modern design principles with deep cultural understanding, ensuring that every project not only looks great but also feels authentic to local users.
@@ -1133,7 +1149,6 @@ export default function Home() {
                 </div>
               </GlassCard>
             </AnimatedSection>
-
             <AnimatedSection className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1196,14 +1211,13 @@ export default function Home() {
       <section id="contact" className="py-20 px-4 relative z-10">
         <GlassCard className="container mx-auto max-w-6xl p-12 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
           <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Lets Work Together
+            <h2 className="text-3xl md:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Let  is Work Together
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Ready to bring your next project to life?  love to hear about your ideas and discuss how we can create something amazing together.
+            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+              Ready to bring your next project to life? I love to hear about your ideas and discuss how we can create something amazing together.
             </p>
           </AnimatedSection>
-
           <AnimatedSection>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {[
@@ -1244,12 +1258,11 @@ export default function Home() {
                     <contact.icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="font-medium mb-2 text-white">{contact.title}</h3>
-                  <p className="text-gray-300">{contact.info}</p>
+                  <p className="text-gray-300 text-sm md:text-base">{contact.info}</p>
                 </motion.div>
               ))}
             </div>
           </AnimatedSection>
-
           <AnimatedSection>
             <div className="flex justify-center gap-4 flex-wrap">
               <motion.div
@@ -1260,9 +1273,9 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2  border-0 shadow-lg"
+                  className="gap-2 border-0 shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-5 h-5" />
                   Send Email
                 </Button>
               </motion.div>
@@ -1274,9 +1287,9 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="gap-2 border-white/30 shadow-lg"
+                  className="gap-2 border-white/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-5 h-5" />
                   LinkedIn
                 </Button>
               </motion.div>
@@ -1288,9 +1301,9 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="gap-2 border-white/30 shadow-lg"
+                  className="gap-2 border-white/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github className="w-5 h-5" />
                   GitHub
                 </Button>
               </motion.div>
@@ -1304,7 +1317,7 @@ export default function Home() {
         <AnimatedSection>
           <div className="container mx-auto max-w-6xl">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-gray-300 text-sm">© 2024 Vatanak. All rights reserved.</p>
+              <p className="text-gray-300 text-sm">© 2025 Vatanak. All rights reserved.</p>
               <p className="text-gray-300 text-sm">Made with ❤️ in Cambodia</p>
             </div>
           </div>
@@ -1314,7 +1327,7 @@ export default function Home() {
       {/* Scroll to Top Button */}
       <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 p-3 rounded-full shadow-lg z-40 bg-gradient-to-r from-cyan-500 to-purple-500 text-white"
+        className="fixed bottom-8 right-8 p-4 rounded-full shadow-lg z-40 bg-gradient-to-r from-cyan-500 to-purple-500 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
         initial={{ scale: 0 }}
         animate={{ scale: showScrollTop ? 1 : 0 }}
         whileHover={{ scale: 1.1, y: -2 }}
@@ -1325,7 +1338,7 @@ export default function Home() {
           duration: 0.2,
         }}
       >
-        <ArrowUp className="w-5 h-5" />
+        <ArrowUp className="w-6 h-6" />
       </motion.button>
     </div>
   );
