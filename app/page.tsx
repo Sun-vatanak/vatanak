@@ -657,7 +657,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                 >
-                  UX/UI Designer Based in Cambodia
+                  UX/UI Designer and  Web Developer Based in Cambodia
                 </motion.h2>
               </div>
               <motion.p
