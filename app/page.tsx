@@ -1138,7 +1138,7 @@ export default function Home() {
               <GlassCard className="p-6 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
                 <div className="space-y-4 text-gray-300 text-sm md:text-base">
                   <p>
-                    I am Vatanak, a passionate UX/UI designer with over 1 year of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
+                    I am Vatanak, a passionate UX/UI designer and Web Developer with over 1 year of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
                   </p>
                   <p>
                     My approach combines modern design principles with deep cultural understanding, ensuring that every project not only looks great but also feels authentic to local users.
