@@ -332,6 +332,20 @@ export default function Home() {
       ],
       gradient: "from-indigo-500/15 to-violet-500/15",
     },
+    {
+      id: 4,
+      company: "cathaybank Cambodia",
+      position: "Junior Designer",
+      period: "2025 - present",
+      location: "Phnom Penh, Cambodia",
+      description:
+        "Contributed to UX/UI for cathaybank  Office ",
+      achievements: [
+        "Created brand Bank UI companies",
+        
+      ],
+      gradient: "from-indigo-500/15 to-violet-500/15",
+    },
   ];
 
   const education: Education[] = [
