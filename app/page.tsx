@@ -290,7 +290,7 @@ export default function Home() {
     {
       id: 1,
       company: "ANT Training Center",
-      position: "UX/UI Designer",
+      position: "UX/UI Designer And Frontend Developer Scholarship MPTC CBRD",
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
@@ -305,7 +305,7 @@ export default function Home() {
     {
       id: 2,
       company: "IT ស្រុកស្រែ (Srok Srae)",
-      position: "UX/UI Designer And Frontend Developer",
+      position: " Freelance  UX/UI Designer And Frontend Developer ",
       period: "2024 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
@@ -320,8 +320,8 @@ export default function Home() {
     {
       id: 3,
       company: "iOne Cambodia",
-      position: "Junior Designer",
-      period: "2025 - present",
+      position: "Intern UX/UI Designer And Frontend Developer",
+      period: "2025 - 2025",
       location: "Phnom Penh, Cambodia",
       description:
         "Contributed to UX/UI for iOne Office and front-end development using Next.js.",
@@ -342,6 +342,8 @@ export default function Home() {
         "Contributed to UX/UI for cathaybank  Office ",
       achievements: [
         "Created brand Bank UI companies",
+        "Expanded services to HR management and dashboard design",
+        "Won 'Rising Designer' award 2025",
         
       ],
       gradient: "from-indigo-500/15 to-violet-500/15",
