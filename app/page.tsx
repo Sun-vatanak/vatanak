@@ -140,8 +140,44 @@ export default function Home() {
 
   // Updated projects data with corrected IDs
   const projects: Project[] = [
-    {
+      {
       id: 1,
+      title: "Sala Online  App",
+      description:
+        "Mobile app for students to access online courses, submit assignments, and track academic progress with a focus on UX/UI design.",
+      image: "/images/project17.png",
+      category: "Mobile App",
+      tools: ["Figma", "Freepick", "Adobe XD"],
+      year: "2024",
+      gradient: "from-cyan-500 to-blue-500",
+      link: "https://www.figma.com/design/TK9iAhXATDmqWVpH9jUIUC/SalaOnline-UI?node-id=0-1&t=EJn3WXFbI8jlgWTD-1",
+    },
+       {
+      id: 2,
+      title: " AI wowman Web App",
+      description:
+        "web app for AI wowman redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
+      image: "/images/project18.png",
+      category: "Mobile App",
+      tools: ["Figma", "Freepick", "Adobe XD"],
+      year: "2024",
+      gradient: "from-cyan-500 to-blue-500",
+      link: "https://www.figma.com/design/mWDbaGo7aL117gsXlWZTY3/Sarana-Woman-Ai?node-id=0-1&t=nlbt8Lp5MeoGzqkZ-1",
+    },
+          {
+      id: 3,
+      title: "RNT TAXi",
+      description:
+        "Mobile app for RNT TAXi redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
+      image: "/images/project19.png",
+      category: "Mobile App",
+      tools: ["Figma", "Freepick", "Adobe XD"],
+      year: "2024",
+      gradient: "from-cyan-500 to-blue-500",
+      link: "https://www.figma.com/design/eBNEdaeEGa6HMLus1dMm6Y/Taxi-App?node-id=88-968&t=olaT3DhLBfg96Mv8-1",
+    },
+    {
+      id: 4,
       title: "Fishion & Shop App",
       description:
         "Mobile app redesign for Cambodia's premier tourism platform, featuring temple guides and cultural experiences.",
@@ -153,7 +189,7 @@ export default function Home() {
       link: "https://www.figma.com/design/EOnlswLUhwEjtJghsNBahk/Fashion--Shop?node-id=0-1&t=lPLsI07xo9foTIah-1",
     },
     {
-      id: 2,
+      id: 5,
       title: "Figma Project Phser Baitong",
       description:
         "Complete UX overhaul of a local banking platform with focus on accessibility and Khmer language support.",
@@ -165,7 +201,7 @@ export default function Home() {
       link: "https://www.figma.com/design/5NiaE7l5yVRXEiG9MaQC2z/UX%2FUI-Figma-File?t=fsy2KilShLh1Fvxh-1",
     },
     {
-      id: 3,
+      id: 6,
       title: "Figma Project IOne Office V2",
       description:
         "Full-stack e-commerce solution designed for local artisans and craftspeople selling traditional goods.",
@@ -177,7 +213,7 @@ export default function Home() {
       link: "https://www.figma.com/design/i5JurepNjQNiT22IY7Wfuy/iOne?node-id=1-2&t=xCOb7cwa9X926H5d-1",
     },
     {
-      id: 4,
+      id: 7,
       title: "Figma Project IOne Office V2 Dashboard",
       description:
         "Interactive public transportation system design with multilingual support and accessibility features.",
@@ -189,7 +225,7 @@ export default function Home() {
       link: "https://www.figma.com/design/JaUet4VrOsF4zc1PlGHf8t/iOne-Office?node-id=18-5227&t=Fe2kHL9FMMN6En7i-1",
     },
     {
-      id: 5,
+      id: 8,
       title: "Cambodian Recipe App",
       description:
         "Cultural cooking app preserving traditional Khmer recipes with step-by-step video tutorials.",
@@ -201,7 +237,7 @@ export default function Home() {
       link: "http://antstudents.com/WebScholarshipS2/Group-17/ProjectCSS_GreenGrowth/mains/index.html",
     },
     {
-      id: 6,
+      id: 9,
       title: "គេហទំព័រ ហ្រ្គីនហ្រ្កូ Green Growth",
       description:
         "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -213,7 +249,7 @@ export default function Home() {
       link: "https://example.com/phnom-penh-metro-map",
     },
     {
-      id: 7,
+      id: 10,
       title: "Project Phser Baitong",
       description:
         "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -225,7 +261,7 @@ export default function Home() {
       link: "https://www.figma.com/board/LyzNv1v3GDlD2N4gLT12Px/UX-UI-FigJam?node-id=0-1&t=uOG0tpSukN3FYIaL-0",
     },
     {
-      id: 8,
+      id: 11,
       title: "Project Phser Baitong Video Demo",
       description:
         "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -237,7 +273,7 @@ export default function Home() {
       link: "https://www.facebook.com/share/v/17AzXzyc4b/",
     },
     {
-      id: 9,
+      id: 12,
       title: "គេហទំព័រ កសិករ / Kaksekar",
       description:
         "Social media learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -249,7 +285,7 @@ export default function Home() {
       link: "http://antstudents.com/WebScholarship/Group-16/ProjectHTML/index.html",
     },
     {
-      id: 10,
+      id: 13,
       title: "Clinic System",
       description:
         "System learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -261,7 +297,7 @@ export default function Home() {
       link: "https://github.com/Sun-vatanak/Clinic-system-api.git",
     },
     {
-      id: 11,
+      id: 14,
       title: "Mobile App API",
       description:
         "Mobile app learning platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -273,7 +309,7 @@ export default function Home() {
       link: "https://github.com/Sun-vatanak/moblieapp-api-nu.git",
     },
     {
-      id: 12,
+      id: 15,
       title: "Website Web Body UX UI",
       description:
         "Website body platform for Cambodian students about agriculture, with gamification and local product selling.",
@@ -495,14 +531,18 @@ export default function Home() {
 
   const GlassCard: React.FC<GlassCardProps> = ({ children, className = "", gradient = "" }) => (
     <div
-      className={`backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl ${gradient} ${className}`}
+      className={`bg-white shadow-sm rounded-2xl text-black ${gradient} ${className}`}
+      style={{
+        // ensure subtle elevation on light background
+        boxShadow: "0 6px 18px rgba(16,24,40,0.06)",
+      }}
     >
       {children}
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-auto">
+    <div className="min-h-screen bg-background overflow-auto">
       {/* Ensure smooth scrolling globally */}
       <style jsx global>{`
         html, body {
@@ -531,12 +571,12 @@ export default function Home() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-20 backdrop-blur-xl bg-black/20 border-b border-white/10"
+        className="fixed top-0 left-0 right-0 z-20 bg-white/70 border-b border-gray-200 backdrop-blur-sm"
       >
         <div className="container mx-auto max-w-6xl px-4 py-4">
           <div className="flex items-center justify-between">
             <motion.div
-              className="text-xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
+              className="text-xl font-medium bg-gradient-to-r from-cyan-600 to-slate-800 bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
@@ -553,13 +593,13 @@ export default function Home() {
                 { name: "About", id: "about" },
                 { name: "Contact", id: "contact" },
               ].map((item) => (
-                <motion.button
+                  <motion.button
                   key={item.name}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-200 hover:text-white transition-colors relative focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
+                  className="text-gray-700 hover:text-gray-900 transition-colors relative focus:outline-none focus:ring-2 focus:ring-sky-300"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.16 }}
                 >
                   {item.name}
                   <motion.div
@@ -573,15 +613,15 @@ export default function Home() {
             </div>
             {/* Mobile Menu Toggle */}
             <motion.button
-              className="md:hidden p-3 rounded-lg backdrop-blur-sm bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="md:hidden p-3 rounded-lg bg-white/60 text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.16 }}
             >
               {isMenuOpen ? (
-                <X className="w-7 h-7 text-white" />
+                <X className="w-7 h-7 text-gray-800" />
               ) : (
-                <Menu className="w-7 h-7 text-white" />
+                <Menu className="w-7 h-7 text-gray-800" />
               )}
             </motion.button>
           </div>
@@ -609,9 +649,9 @@ export default function Home() {
                   <motion.button
                     key={item.name}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left text-lg text-gray-200 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 py-3"
-                    whileHover={{ x: 8 }}
-                    transition={{ duration: 0.2 }}
+                    className="block w-full text-left text-lg text-gray-700 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-300 py-3"
+                    whileHover={{ x: 6 }}
+                    transition={{ duration: 0.14 }}
                   >
                     {item.name}
                   </motion.button>
@@ -646,7 +686,7 @@ export default function Home() {
             >
               <div className="space-y-2">
                 <motion.h1
-                  className="text-4xl md:text-5xl lg:text-6xl font-medium text-white drop-shadow-lg"
+                  className="text-4xl md:text-5xl lg:text-6xl font-medium text-foreground drop-shadow-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -663,21 +703,21 @@ export default function Home() {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                  >
+                    >
                     Vatanak
                   </motion.span>
                 </motion.h1>
                 <motion.h2
-                  className="text-2xl md:text-3xl text-gray-200 drop-shadow"
+                  className="text-2xl md:text-3xl text-foreground/70 drop-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                 >
-                  UX/UI Designer and  Web Developer Based in Cambodia
+                  UX/UI Designer and Web Developer Based in Cambodia
                 </motion.h2>
               </div>
               <motion.p
-                className="text-base md:text-lg text-gray-300 max-w-lg drop-shadow"
+                className="text-base md:text-lg text-foreground/70 max-w-lg drop-shadow"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
@@ -711,11 +751,11 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="gap-2 backdrop-blur-sm bg-white/10 border-white/30 text-white hover:bg-white/15 shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    className="gap-2 backdrop-blur-sm bg-white/10 border-white/30 text-black hover:bg-white/15 shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-300"
                     onClick={() => scrollToSection("contact")}
                   >
                     <Mail className="w-5 h-5" />
-                    Get in Touch
+                    Back
                   </Button>
                 </motion.div>
               </motion.div>
@@ -727,7 +767,7 @@ export default function Home() {
               >
                 {[
                   {
-                    value: "1+",
+                    value: "2+",
                     label: "Years Experience",
                     gradient: "from-cyan-500/25 to-blue-500/25",
                   },
@@ -759,7 +799,7 @@ export default function Home() {
                       <div className="text-2xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                         {stat.value}
                       </div>
-                      <div className="text-sm text-gray-300">{stat.label}</div>
+                      <div className="text-sm text-gray-700">{stat.label}</div>
                     </GlassCard>
                   </motion.div>
                 ))}
@@ -816,28 +856,19 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Featured Projects
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg">
               A selection of recent UX/UI projects that showcase my approach to solving complex design challenges in the Cambodian market.
             </p>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
+            {projects.map((project) => (
+              <div
                 key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: "easeOut",
-                }}
-                whileHover={{ y: -8, scale: 1.02 }}
               >
                 <GlassCard className="group hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-400 h-full overflow-hidden">
-                  <div className="p-0">
+                  <div className="p-4">
                     <motion.div
-                      className="aspect-[4/3] overflow-hidden"
+                      className="aspect-[4/3] overflow-hidden rounded-xl"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
                     >
@@ -846,10 +877,10 @@ export default function Home() {
                         alt={project.title}
                         width={600}
                         height={400}
-                        className="w-full h-full object-cover transition-transform duration-400"
+                        className="w-full h-full object-cover transition-transform duration-400 rounded-xl"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </motion.div>
                   </div>
                   <div className="p-6">
@@ -859,22 +890,22 @@ export default function Home() {
                       >
                         {project.category}
                       </Badge>
-                      <span className="text-sm text-gray-300">{project.year}</span>
+                      <span className="text-sm text-gray-600">{project.year}</span>
                     </div>
                     <h3 className="text-xl font-medium mb-2 text-white">{project.title}</h3>
-                    <p className="text-gray-300 mb-4 line-clamp-2 text-sm md:text-base">{project.description}</p>
+                    <p className="text-gray-700 mb-4 line-clamp-2 text-sm md:text-base">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tools.map((tool) => (
                         <Badge
                           key={tool}
                           variant="outline"
-                          className="text-xs border-white/20 text-gray-300 hover:bg-white/10"
+                          className="text-xs border-gray-200 text-gray-600 hover:bg-gray-50"
                         >
                           {tool}
                         </Badge>
                       ))}
                     </div>
-                    <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
+                    <div className="relative z-10">
                       <a
                         href={project.link || "#"}
                         target={project.link ? "_blank" : "_self"}
@@ -889,10 +920,10 @@ export default function Home() {
                           <ExternalLink className="w-4 h-4" />
                         </Button>
                       </a>
-                    </motion.div>
+                    </div>
                   </div>
                 </GlassCard>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -906,11 +937,11 @@ export default function Home() {
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full">
                 <Briefcase className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium text-black">
                 Professional Experience
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-black max-w-2xl mx-auto text-base md:text-lg">
               My journey through the design industry, working with innovative companies and contributing to meaningful projects across Southeast Asia.
             </p>
           </AnimatedSection>
@@ -931,33 +962,33 @@ export default function Home() {
                   whileHover={{ scale: 1.02, y: -3 }}
                 >
                   <GlassCard
-                    className={`p-8 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-400 bg-gradient-to-br ${exp.gradient}`}
+                    className={`p-8 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-400 bg-white`}
                   >
                     <div className="flex flex-col lg:flex-row gap-8">
-                      <div className="lg:w-1/3">
+                        <div className="lg:w-1/3">
                         <div className="flex items-center gap-2 mb-2">
                           <Building className="w-5 h-5 text-cyan-400" />
-                          <h3 className="text-xl font-medium text-white">{exp.company}</h3>
+                          <h3 className="text-xl font-medium text-black">{exp.company}</h3>
                         </div>
-                        <h4 className="text-purple-400 font-medium mb-2">{exp.position}</h4>
-                        <div className="flex items-center gap-2 text-gray-300 mb-2">
+                        <h4 className="text-black font-medium mb-2">{exp.position}</h4>
+                        <div className="flex items-center gap-2 text-black mb-2">
                           <Calendar className="w-4 h-4" />
                           <span className="text-sm">{exp.period}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-300">
+                        <div className="flex items-center gap-2 text-black">
                           <MapPin className="w-4 h-4" />
                           <span className="text-sm">{exp.location}</span>
                         </div>
                       </div>
                       <div className="lg:w-2/3">
-                        <p className="text-gray-300 mb-4 text-sm md:text-base">{exp.description}</p>
+                        <p className="text-black mb-4 text-sm md:text-base">{exp.description}</p>
                         <div className="space-y-2">
-                          <h5 className="font-medium text-sm text-white">Key Achievements:</h5>
+                          <h5 className="font-medium text-sm text-black">Key Achievements:</h5>
                           <ul className="space-y-1">
                             {exp.achievements.map((achievement, idx) => (
                               <motion.li
                                 key={idx}
-                                className="text-sm text-gray-300 flex items-start gap-2"
+                                className="text-sm text-black flex items-start gap-2"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -994,7 +1025,7 @@ export default function Home() {
                 Education & Certifications
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg">
               Continuous learning and professional development that shaped my design philosophy and technical expertise.
             </p>
           </AnimatedSection>
@@ -1020,23 +1051,23 @@ export default function Home() {
                       </div>
                       <h3 className="font-medium mb-2 text-white">{edu.institution}</h3>
                       <h4 className="text-purple-400 text-sm font-medium mb-2">{edu.degree}</h4>
-                      <div className="flex items-center justify-center gap-2 text-gray-300 mb-2">
+                      <div className="flex items-center justify-center gap-2 text-gray-700 mb-2">
                         <Calendar className="w-4 h-4" />
                         <span className="text-sm">{edu.period}</span>
                       </div>
-                      <div className="flex items-center justify-center gap-2 text-gray-300">
+                      <div className="flex items-center justify-center gap-2 text-gray-700">
                         <MapPin className="w-4 h-4" />
                         <span className="text-sm">{edu.location}</span>
                       </div>
                     </div>
-                    <p className="text-gray-300 text-sm mb-4">{edu.description}</p>
+                    <p className="text-gray-700 text-sm mb-4">{edu.description}</p>
                     <div>
                       <h5 className="font-medium text-sm mb-2 text-white">Highlights:</h5>
                       <ul className="space-y-1">
                         {edu.achievements.map((achievement, idx) => (
                           <motion.li
                             key={idx}
-                            className="text-sm text-gray-300 flex items-start gap-2"
+                            className="text-sm text-gray-700 flex items-start gap-2"
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -1067,11 +1098,11 @@ export default function Home() {
               <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full">
                 <Palette className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-medium text-black">
                 Skills & Expertise
               </h2>
             </div>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-black max-w-2xl mx-auto text-base md:text-lg">
               Comprehensive skill set developed through years of experience in digital design and user experience research.
             </p>
           </AnimatedSection>
@@ -1082,7 +1113,7 @@ export default function Home() {
                   <div className="p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg">
                     <Palette className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-medium text-white">Design Skills</h3>
+                  <h3 className="text-xl font-medium text-black">Design Skills</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {skills.map((skill, index) => (
@@ -1113,7 +1144,7 @@ export default function Home() {
                   <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
                     <Code className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-medium text-white">Tools & Software</h3>
+                  <h3 className="text-xl font-medium text-black">Tools & Software</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {tools.map((tool, index) => (
@@ -1152,15 +1183,15 @@ export default function Home() {
                 About Vatanak
               </h2>
               <GlassCard className="p-6 bg-gradient-to-br from-cyan-500/10 to-purple-500/10">
-                <div className="space-y-4 text-gray-300 text-sm md:text-base">
+                <div className="space-y-4 text-gray-700 text-sm md:text-base">
                   <p>
-                    I am Vatanak, a passionate UX/UI designer and Web Developer with over 1 year of experience creating digital solutions that resonate with Southeast Asian audiences, particularly in Cambodia.
+                    I am Vatanak, a passionate UX/UI designer and Web Developer focused on clean, modern interfaces. I create thoughtful experiences that blend cultural context with contemporary design.
                   </p>
                   <p>
                     My approach combines modern design principles with deep cultural understanding, ensuring that every project not only looks great but also feels authentic to local users.
                   </p>
                   <p>
-                    I believe in the power of user-centered design to solve real problems and create meaningful experiences that bridge the gap between technology and traditional Khmer culture.
+                    I believe in the power of user-centered design to solve real problems and create meaningful experiences that bridge the gap between technology and tradition.
                   </p>
                 </div>
               </GlassCard>
@@ -1213,7 +1244,7 @@ export default function Home() {
                       <div className="text-2xl font-medium bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                         {stat.value}
                       </div>
-                      <div className="text-sm text-gray-300">{stat.label}</div>
+                      <div className="text-sm text-gray-700">{stat.label}</div>
                     </GlassCard>
                   </motion.div>
                 ))}
@@ -1230,7 +1261,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-medium mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Let  is Work Together
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg">
               Ready to bring your next project to life? I love to hear about your ideas and discuss how we can create something amazing together.
             </p>
           </AnimatedSection>
@@ -1274,7 +1305,7 @@ export default function Home() {
                     <contact.icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="font-medium mb-2 text-white">{contact.title}</h3>
-                  <p className="text-gray-300 text-sm md:text-base">{contact.info}</p>
+                  <p className="text-gray-700 text-sm md:text-base">{contact.info}</p>
                 </motion.div>
               ))}
             </div>
@@ -1333,8 +1364,8 @@ export default function Home() {
         <AnimatedSection>
           <div className="container mx-auto max-w-6xl">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-gray-300 text-sm">© 2025 Vatanak. All rights reserved.</p>
-              <p className="text-gray-300 text-sm">Made with ❤️ in Cambodia</p>
+              <p className="text-gray-600 text-sm">© 2025 Vatanak. All rights reserved.</p>
+              <p className="text-gray-600 text-sm">Made with ❤️ in Cambodia</p>
             </div>
           </div>
         </AnimatedSection>
